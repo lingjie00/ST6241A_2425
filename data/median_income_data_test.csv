@@ -1,2 +1,2 @@
-year,med_income_incl_empcpf,med_income_excl_empcpf
-2023,5197,4550
+year,income,income_diff
+2023,5197,127.0
