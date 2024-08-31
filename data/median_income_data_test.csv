@@ -1,2 +1,2 @@
-year,income,income_diff
-2023,5197,127.0
+year,income,income_diff,income_log,income_log_diff
+2023,5197,127.0,8.555836815008442,0.024740718423213792
