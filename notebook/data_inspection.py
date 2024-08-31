@@ -107,4 +107,45 @@ resale_price_test.to_csv(ROOT_DIR / "data" / "resale_price_test.csv", index=Fals
 # %%
 # Export as matrix
 # For R functions, they expect the data to be stored as matrix
-median_income_data_train
+# We save the log diff as
+resale_price_log_diff_train = resale_price_train.pivot(
+    columns="town", index="month", values="price_log_diff"
+).dropna()
+resale_price_log_diff_train.head()
+resale_price_log_diff_train.to_csv(
+    ROOT_DIR / "data" / "resale_price_log_diff_train.csv", index=True
+)
+resale_price_log_diff_test = resale_price_test.pivot(
+    columns="town", index="month", values="price_log_diff"
+).dropna()
+resale_price_log_diff_test.head()
+resale_price_log_diff_test.to_csv(
+    ROOT_DIR / "data" / "resale_price_log_diff_test.csv", index=True
+)
+
+# %%
+# merge the median income data with resale price data
+resale_price_yearly = (
+    resale_price.assign(year=resale_price["month"].dt.year)
+    .groupby(["year"])[["resale_price"]]
+    .mean()
+    .reset_index()
+    .round()
+)
+resale_price_yearly["price_log"] = np.log(resale_price_yearly["resale_price"])
+resale_price_yearly["price_log_diff"] = resale_price_yearly["price_log"].diff()
+resale_price_yearly = resale_price_yearly.dropna()
+resale_price_yearly = resale_price_yearly.merge(
+    median_income_data[["year", "income_log_diff"]], on="year"
+)
+resale_price_yearly = resale_price_yearly[["year", "price_log_diff", "income_log_diff"]]
+resale_price_yearly.info()
+resale_price_yearly.head()
+
+# %%
+resale_price_yearly.query("year < 2023").to_csv(
+    ROOT_DIR / "data" / "resale_price_yearly_train.csv", index=False
+)
+resale_price_yearly.query("year >= 2023").to_csv(
+    ROOT_DIR / "data" / "resale_price_yearly_test.csv", index=False
+)
