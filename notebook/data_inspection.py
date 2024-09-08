@@ -9,6 +9,8 @@ pd.set_option("display.max_rows", 1000)
 
 ROOT_DIR = Path(".")
 
+# %%
+
 
 # # Inspect data
 median_income_data = pd.read_csv(
@@ -35,6 +37,7 @@ median_income_data = median_income_data.drop(
 median_income_data = median_income_data.dropna()
 median_income_data
 
+# %%
 
 resale_price = pd.concat(
     [
@@ -52,10 +55,16 @@ resale_price.head()
 
 resale_price.describe()
 
+# %%
+
 
 # observe if the housing price is available for every single month data
 # note how some the longest data available is 96 months while shortest is 1 month
 resale_price.groupby(
+    ["town", "flat_type", "block", "street_name", "storey_range", "flat_model"]
+)[["month"]].nunique().describe()
+
+resale_price.query("town == 'BUKIT TIMAH'").groupby(
     ["town", "flat_type", "block", "street_name", "storey_range", "flat_model"]
 )[["month"]].nunique().describe()
 
