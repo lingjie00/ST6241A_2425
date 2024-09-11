@@ -1,0 +1,116 @@
+---
+title: "statistical_ts_models"
+author: "Bai Yijian"
+date: "2024-09-10"
+output: html_document
+---
+
+# Preparing
+```{r}
+library(TSA)
+library(vars)
+library(urca)
+library(HDTSA)
+library(forecast)
+```
+
+```{r}
+# %%
+median_income <- read.csv("data/median_income_data_train.csv")
+median_income[1:5, ]
+str(median_income)
+
+# %%
+resale_price <- read.csv("data/resale_price_log_diff_train.csv", row.names = 1)
+resale_price[1:5, ]
+```
+
+# ARMA
+
+## fitting
+
+```{r}
+resale_price_bukit_timah_arima <- arima(
+    resale_price$BUKIT.TIMAH,
+    order = c(1, 0, 2)
+)
+resale_price_bukit_timah_arima
+```
+
+## prediction
+
+```{r}
+resale_preds=predict(resale_price_bukit_timah_arima,n.ahead = 20)$pred
+ 
+# save
+write.csv(resale_preds, file = "data/resale_price_log_diff_arma_pred.csv", row.names = FALSE)
+```
+
+
+
+# VAR
+```{r}
+resale_price_var <- VAR(resale_price, ic = "SC")
+#summary(resale_price_var)
+```
+
+```{r}
+resale_price_var_restricted <- restrict(resale_price_var)
+BIC(resale_price_var_restricted$varresult$BUKIT.TIMAH)
+#summary(resale_price_var_restricted)
+```
+
+## prediction
+
+```{r}
+resale_price_var_restricted_predict <- predict(
+    resale_price_var_restricted,
+    n.ahead = 20
+)$fcst$BUKIT.TIMAH
+# save
+write.csv(resale_price_var_restricted_predict[,1], file = "data/resale_price_log_diff_var_pred_bt.csv", row.names = FALSE)
+```
+
+```{r}
+resale_price_var_restricted_predict <- predict(
+    resale_price_var_restricted,
+    n.ahead = 20
+)$fcst$YISHUN
+# save
+write.csv(resale_price_var_restricted_predict[,1], file = "data/resale_price_log_diff_var_pred_ys.csv", row.names = FALSE)
+```
+
+```{r}
+resale_price_var_restricted_predict <- predict(
+    resale_price_var_restricted,
+    n.ahead = 20
+)$fcst$WOODLANDS
+# save
+write.csv(resale_price_var_restricted_predict[,1], file = "data/resale_price_log_diff_var_pred_wl.csv", row.names = FALSE)
+```
+
+```{r}
+resale_price_var_restricted_predict <- predict(
+    resale_price_var_restricted,
+    n.ahead = 20
+)$fcst$TOA.PAYOH
+# save
+write.csv(resale_price_var_restricted_predict[,1], file = "data/resale_price_log_diff_var_pred_tp.csv", row.names = FALSE)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
