@@ -23,7 +23,7 @@ Project work for ST6241A, Aug 2024
 - `statistical_models/statistical_time_series.R`: Building and testing the statistical models.
 - `statistical_models/statistical_ts_models.Rmd`: Predictions of the statistical models.
 
-The original codes of Autofomer are from https://github.com/thuml/Autoformer. We changed some important hyperparameters to train and predict the resale price.
+The original codes of Autofomer are from https://github.com/thuml/Autoformer. We tuned some important hyperparameters to train and predict the resale price.
 
 ## Dataset
 
