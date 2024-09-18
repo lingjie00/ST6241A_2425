@@ -4,11 +4,12 @@ channels:
   - pytorch
   - defaults
 dependencies:
-  - python=3.7
+  - python=3.9
   - pip
   - matplotlib
   - numpy
   - pandas
   - scikit-learn
   - pip:
-    - torch==1.9.0
+    - torch==2.4.1
+    
