@@ -15,15 +15,24 @@ Project work for ST6241A, Aug 2024
     - Relationship between the 2 dataset
 
 ## Repo structure
-- `data_generation_AF.ipynb`: Generating the datasets suit for Autoformer model from the transformed resale datasets
-- `project_resale_predict.ipynb`: Results of training Autoformer and using the trained model to prediction
-- `results_of_statistical_model.ipynb`: Results and visulizations of statistical models
-- `statistical_models/data`: Data transformed and predictions in statistical modelling
-- `statistical_models/asset`: Assets of statistical models used in the final report, including plots and other visuals
-- `statistical_models/statistical_time_series.R`: Building and testing the statistical models.
-- `statistical_models/statistical_ts_models.Rmd`: Predictions of the statistical models.
 
-The original codes of Autofomer are from https://github.com/thuml/Autoformer. We tuned some important hyperparameters to train and predict the resale price.
+The original codes of Autofomer are from (thuml/Autoformer)[https://github.com/thuml/Autoformer].
+We only tuned the hyperparameters listed in the report to train and predict the resale price.
+
+We only listed the more important files in the repo.
+
+```bash
+.
+├── data_generation_AF.ipynb # -> Generating the datasets suit for Autoformer model from the transformed resale datasets
+├── project_resale_predict.ipynb # -> Results of training Autoformer and using the trained model to prediction
+├── results_of_statistical_model.ipynb # -> Results and visulizations of statistical models
+├── statistical_models
+│  ├── asset # -> Assets of statistical models used in the final report, including plots and other visuals
+│  ├── data # -> Data transformed and predictions in statistical modelling
+│  ├── statistical_time_series.R # -> Building and testing the statistical models.
+│  └── statistical_ts_models.Rmd # -> Predictions of the statistical models.
+```
+
 
 ## Dataset
 
