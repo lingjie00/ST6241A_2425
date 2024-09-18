@@ -16,10 +16,23 @@ Project work for ST6241A, Aug 2024
 
 ## Repo structure
 
-- `notebook`: Notebooks used to produce the visuals
-- `model`: Models built for the prediction
-- `data`: Data transformed/used in modelling
-- `asset`: Assets used in the final report, including plots and other visuals
+The original codes of Autofomer are from (thuml/Autoformer)[https://github.com/thuml/Autoformer].
+We only tuned the hyperparameters listed in the report to train and predict the resale price.
+
+We only listed the more important files in the repo.
+
+```bash
+.
+├── data_generation_AF.ipynb # -> Generating the datasets suit for Autoformer model from the transformed resale datasets
+├── project_resale_predict.ipynb # -> Results of training Autoformer and using the trained model to prediction
+├── results_of_statistical_model.ipynb # -> Results and visulizations of statistical models
+├── statistical_models
+│  ├── asset # -> Assets of statistical models used in the final report, including plots and other visuals
+│  ├── data # -> Data transformed and predictions in statistical modelling
+│  ├── statistical_time_series.R # -> Building and testing the statistical models.
+│  └── statistical_ts_models.Rmd # -> Predictions of the statistical models.
+```
+
 
 ## Dataset
 
@@ -27,19 +40,16 @@ Project work for ST6241A, Aug 2024
 
 - [Singapore HDB resale price TS](https://data.gov.sg/collections/189/view)
     - Multivariate time series capturing Singapore's public housing resale price
-- [Singapore Median Income TS](https://beta.data.gov.sg/datasets/d_7b5fd60b047a80da91d2adb86cf47628/view)
-    - Univariate time series capturing Singapore's median income growth
 
 ### Transformed dataset
 
-`data` folder contains the transformed data while `data/raw` contains the raw data.
+`dataset/resale_price` folder contains the transformed data for Autoformer model.
+
+`statistical_models/data` folder contains the transformed data while `data/raw` contains the raw data.
 
 We split data before 2023 as training data and data in 2023 as test data.
 Suffixed with `_train` and `_test` respectively.
 
-- median income data
-    - `median_income_data_train.csv`
-    - `median_income_data_test.csv`
 - resale price data (monthly x town)
     - `resale_price_train.csv`
     - `resale_price_test.csv`
@@ -52,7 +62,19 @@ Suffixed with `_train` and `_test` respectively.
     - `resale_price_yearly_test.csv`
 
 ```bash
-data
+dataset/resale_price
+├── median_income_data_test.csv
+├── median_income_data_train.csv
+├── resale_price_AF_test.csv
+├── resale_price_AF_train.csv
+├── resale_price_log_diff_test.csv
+├── resale_price_log_diff_train.csv
+├── resale_price_test.csv
+├── resale_price_train.csv
+├── resale_price_yearly_test.csv
+└── resale_price_yearly_train.csv
+
+statistical_models/data
 ├── median_income_data_test.csv
 ├── median_income_data_train.csv
 ├── raw_data
